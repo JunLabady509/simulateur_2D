@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "screen.h"
+#include <stdbool.h>
 #include "swarm.h"
 #include "particle.h"
+#include <math.h>
 
-int main(int argc, char *argv[])
+int main(void)
 {
     // Init the SDL
     init_SDL_Screen();
@@ -16,7 +18,8 @@ int main(int argc, char *argv[])
     // Generate the swarm
     Swarm swarm = Swarm_create();
 
-    while(!quit_program)
+    bool is_running = false;
+    while (!is_running)
     {
         // Update particles
         int elapsed = SDL_GetTicks();
@@ -27,23 +30,18 @@ int main(int argc, char *argv[])
         for (int i = 0; i < N_PARTICLES; ++i)
         {
             Particle particle = particles[i];
-            int x = (particle.m_x + 1) * SCREEN_WIDTH / 2;
-            int y = particle.m_y * SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2;
-            set_Pixel(x, y, red, green, blue);
+            int x = (particle.m_x_cord + 1) * SCREEN_WIDTH / 2;
+            int y = particle.m_y_cord * SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 2;
+            Uint8 red = (1 + sin(elapsed * 0.0001)) * 128;
+            Uint8 green = (1 + sin(elapsed * 0.0002)) * 128;
+            Uint8 blue = (1 + sin(elapsed * 0.0003)) * 128;
+            set_pixel(x, y, red, green, blue);
         }
 
         // Update the screen
-        update_Screen();
+        update_screen();
 
         // Check for messages/events
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-            {
-                quit_program = true;
-            }
-        }
+        quit_program();
     }
-
 }

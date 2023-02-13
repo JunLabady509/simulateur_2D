@@ -2,9 +2,6 @@
 #include "SDL.h"
 #include "screen.h"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
-
 #define false 0
 #define true 1
 
@@ -186,7 +183,7 @@ void get_avg_color(int x, int y, Uint8 *red, Uint8 *green, Uint8 *blue)
   *blue = total_blue / 9;
 }
 
-void set_pixel_color(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
+void set_pixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
 {
   if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
   {

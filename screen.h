@@ -3,6 +3,9 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
+
 void init_SDL_Screen();
 void init_Window();
 void init_Renderer();

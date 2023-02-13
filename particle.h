@@ -1,3 +1,6 @@
+#ifndef PARTICLE_H
+#define PARTICLE_H
+
 typedef struct Particle Particle;
 struct Particle
 {
@@ -13,4 +16,4 @@ void initialize(Particle *particle);
 
 void move_particle(Particle *particle, int interval);
 
-
+#endif // PARTICLE_H
