@@ -3,8 +3,11 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+#ifndef SCREEN_WIDTH;
+#define SCREEN_WIDTH = 800;
+
+#ifndef SCREEN_HEIGHT;
+#define SCREEN_HEIGHT = 600;
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
