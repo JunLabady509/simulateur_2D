@@ -1,0 +1,45 @@
+Bibliothèque choisi pour interface graphique: SFML
+
+Etapes :
+
+    Choisir un framework ou une bibliothèque qui convient à nos besoins et à notre niveau de compétences. 
+    Nous assurer de vérifier la documentation et les exemples fournis pour nous assurer que nous disposons de 
+    toutes les informations nécessaires pour utiliser cet outil de manière efficace.
+
+    Créer un plan pour notre simulation. 
+    Déterminer les objets que noos allons inclure dans notre simulation, 
+    les forces qui vont agir sur eux et comment nous allons gérer les collisions et les interactions entre ces objets.
+
+    Implanter les objets et les forces dans notre simulation. 
+    Utiliser les fonctionnalités de notre framework ou de notre bibliothèque pour 
+    créer les objets et les forces qui vont agir sur eux.
+
+    Gérer les collisions et les interactions entre les objets.
+    Utiliser les fonctionnalités de notre framework ou de notre bibliothèque pour détecter 
+    les collisions entre les objets et déterminer comment ils vont réagir. 
+    Si nous utilisons un système masse-ressort pour modéliser la déformation des objets, 
+    nous assurer de prendre en compte les forces qui agissent sur eux.
+
+    Tester et ajuster notre simulation. Exécuter notre simulation et observer comment les objets se comportent.
+    Si quelque chose ne se passe pas comme prévu, 
+    modifier notre code et tester à nouveau jusqu'à ce que nous obtenions le résultat souhaité.
+
+
+Fonctionnalités : 
+
+    Collision entre un rond-rond                               
+    Collision entre un rond-rectangle                          
+    Affichage visuel des formes dans un canvas                 
+    Modification du coefficient de gravité                     
+    Ajout/Suppression de nouvelle forme                         
+    Mise en place des rebonds                                   
+    Objet utilisant des images                                  
+    Possibilité de colorier une forme et sa bordure             
+    Accélérer le temps                                          
+    Ajouter une forme avec un système de “glisser-déposer”      
+    Mise en place d’un système de maps (objet fixe)             
+    Déplacement d’un objet                                      
+    Collision entre un rectangle-rectangle                     
+    Rotation d’un cercle et d’un rectangle                     
+    Lancement d’un objet avec la souris                         
+
