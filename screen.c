@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include "SDL.h"
+#include <stdlib.h>
+#include <SDL2/SDL.h>
 #include "screen.h"
 
 #define false 0
@@ -8,20 +9,17 @@
 // Initialize the SDL_Screen
 void init_SDL_Screen()
 {
-  if SDL_Init (SDL_INIT_VIDEO)
-    != 0
-    {
-      printf(">> SDL_Init Error: %s\n", SDL_GetError());
-    }
+  if (SDL_Init(SDL_INIT_VIDEO) < 0)
+  {
+    printf(">> SDL_Init Error : %s", SDL_GetError());
+    exit(EXIT_FAILURE);
+  }
 }
 
 // Create the SDL_Screen
 void init_Window()
 {
-  SDL_Window *window = NULL;
-  SDL_Renderer *renderer = NULL;
-
-  SDL_CreateWindow(
+  window = SDL_CreateWindow(
       "2D Graphic Simulator",
       SDL_WINDOWPOS_CENTERED,
       SDL_WINDOWPOS_CENTERED,
@@ -38,7 +36,7 @@ void init_Window()
 // Create the SDL_Renderer
 void init_Renderer()
 {
-  SDL_Renderer *renderer = SDL_CreateRenderer(
+  renderer = SDL_CreateRenderer(
       window,
       -1,
       SDL_RENDERER_PRESENTVSYNC |
@@ -47,14 +45,14 @@ void init_Renderer()
   {
     printf(">> SDL_Renderer Error : %s", SDL_GetError());
     SDL_DestroyWindow(window); // Destroy the window
-    exit(FAILURE);
+    exit(EXIT_FAILURE);
   }
 }
 
 // Initialize the SDL_Texture
 void init_Texture()
 {
-  SDL_Texture *texture = SDL_CreateTexture(
+  texture = SDL_CreateTexture(
       renderer,
       SDL_PIXELFORMAT_RGBA8888,
       SDL_TEXTUREACCESS_STREAMING,
@@ -65,7 +63,7 @@ void init_Texture()
     printf(">> SDL_CreateTexture Error : %s", SDL_GetError());
     SDL_DestroyRenderer(renderer); // Destroy the renderer
     SDL_DestroyWindow(window);     // Destroy the window
-    exit(FAILURE);
+    exit(EXIT_FAILURE);
   }
 }
 
@@ -81,7 +79,7 @@ void init_buffers()
     SDL_DestroyTexture(texture);   // Destroy the texture
     SDL_DestroyRenderer(renderer); // Destroy the renderer
     SDL_DestroyWindow(window);     // Destroy the window
-    exit(FAILURE);                 // Close the program with an error
+    exit(EXIT_FAILURE);                 // Close the program with an error
   }
 
   free(main_buffer);
@@ -120,10 +118,10 @@ void Load_Swarm(Swarm *swarm)
   {
     Particle particle = particles[i];
 
-    int x = (particle.m_x + 1) * SCREEN_WIDTH / 2;
-    int y = particle.m_y * SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 2;
+    int x = (particle.m_x_cord + 1) * SCREEN_WIDTH / 2;
+    int y = particle.m_y_cord * SCREEN_WIDTH / 2 + SCREEN_HEIGHT / 2;
 
-    set_pixel_color(x, y, red, green, blue);
+    set_pixel(x, y, red, green, blue);
   }
 }
 
@@ -146,7 +144,7 @@ void box_blur()
       Uint8 green = 0;
       Uint8 blue = 0;
       get_avg_color(x, y, &red, &green, &blue);
-      set_pixel_color(x, y, red, green, blue);
+      set_pixel(x, y, red, green, blue);
     }
   }
 }
@@ -207,7 +205,6 @@ void set_pixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
 // If the window is closed, quit the program.
 int quit_program()
 {
-  SDL_Event event;
   while (SDL_PollEvent(&event))
   {
     if (event.type == SDL_QUIT)

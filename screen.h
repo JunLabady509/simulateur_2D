@@ -6,6 +6,13 @@
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 
+SDL_Window *window = NULL;
+SDL_Renderer *renderer = NULL;
+SDL_Texture *texture = NULL;
+Uint32 *main_buffer = NULL;
+Uint32 *blur_buffer = NULL;
+SDL_Event event;
+
 void init_SDL_Screen();
 void init_Window();
 void init_Renderer();
