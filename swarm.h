@@ -3,8 +3,7 @@
 
 #include "particle.h"
 
-#ifndef N_PARTICLES;
-#define N_PARTICLES = 5000;
+extern const int N_PARTICLES;
 
 typedef struct Swarm Swarm;
 

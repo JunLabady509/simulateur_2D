@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include "screen.h"
 #include <stdbool.h>
-#include "swarm.h"
 #include "particle.h"
 #include <math.h>
 
@@ -16,17 +15,17 @@ int main(void)
     init_Texture();
 
     // Generate the swarm
-    Swarm swarm = Swarm_create();
+    Swarm * swarm = Swarm_create();
 
     bool is_running = false;
     while (!is_running)
     {
         // Update particles
         int elapsed = SDL_GetTicks();
-        Swarm_move(&swarm, elapsed);
+        Swarm_move(swarm, elapsed);
 
         // Draw particles
-        const Particle *const particles = Swarm_get_particles(&swarm);
+        const Particle *const particles = Swarm_get_particles(swarm);
         for (int i = 0; i < N_PARTICLES; ++i)
         {
             Particle particle = particles[i];

@@ -2,9 +2,21 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include "screen.h"
+#include "swarm.h"
 
 #define false 0
 #define true 1
+
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
+
+SDL_Window *window = NULL;  
+SDL_Renderer *renderer = NULL;
+SDL_Texture *texture = NULL;
+Uint32 *main_buffer = NULL;
+Uint32 *blur_buffer = NULL;
+SDL_Event event;
+
 
 // Initialize the SDL_Screen
 void init_SDL_Screen()

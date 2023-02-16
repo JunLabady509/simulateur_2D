@@ -2,6 +2,8 @@
 #include "swarm.h"
 #include "particle.h"
 
+const int N_PARTICLES = 5000;
+
 Swarm *Swarm_create()
 {
   Swarm * swarm = malloc(sizeof(Swarm));
