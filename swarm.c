@@ -1,10 +1,14 @@
+#include <stdlib.h>
 #include "swarm.h"
+#include "particle.h"
 
-Swarm Swarm_create()
+const int N_PARTICLES = 5000;
+
+Swarm *Swarm_create()
 {
-  Swarm swarm = (Swarm)malloc(sizeof(Swarm));
+  Swarm * swarm = malloc(sizeof(Swarm));
   swarm->last_clock = 0;
-  swarm->m_particle_array = (Particle)malloc(N_PARTICLES * sizeof(Particle));
+  swarm->m_particle_array = malloc(N_PARTICLES * sizeof(Particle));
   return swarm;
 }
 
@@ -29,7 +33,7 @@ void Swarm_move(Swarm *swarm, int elapsed)
 
   for (int i = 0; i < N_PARTICLES; ++i)
   {
-    Particle_move_particle(&swarm->m_particle_array[i], interval);
+    move_particle(&swarm->m_particle_array[i], interval);
   }
 }
 

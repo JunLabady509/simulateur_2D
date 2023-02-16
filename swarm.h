@@ -3,7 +3,8 @@
 
 #include "particle.h"
 
-const int N_PARTICLES = 5000;
+extern const int N_PARTICLES;
+
 typedef struct Swarm Swarm;
 
 struct Swarm
@@ -12,7 +13,7 @@ struct Swarm
   Particle *m_particle_array;
 };
 
-Swarm Swarm_create();
+Swarm* Swarm_create();
 void Swarm_destroy(Swarm *swarm);
 void Swarm_move(Swarm *swarm, int elapsed);
 Particle *Swarm_get_particles(const Swarm *swarm);

@@ -1,13 +1,12 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pedantic -std=c99 `sdl-config --cflags`
-LDFLAGS = `sdl-config --libs`
+LDFLAGS = `sdl-config --libs` -lSDL2 -lm
 
 EXEC = mon_programme
 SRC = $(wildcard *.c)
 OBJ = $(SRC:.c=.o)
 
 all: $(EXEC)
-
 
 $(EXEC): $(OBJ)
 		$(CC) -o $@ $^ $(LDFLAGS)
