@@ -15,11 +15,14 @@ int main(void)
     init_Texture();
 
     // Generate the swarm
-    Swarm * swarm = Swarm_create();
+    Swarm *swarm = Swarm_create();
 
-    bool is_running = false;
-    while (!is_running)
+    while (true)
     {
+        // Check for messages/events
+        if (quit_program())
+            break;
+
         // Update particles
         int elapsed = SDL_GetTicks();
         Swarm_move(swarm, elapsed);
@@ -39,8 +42,11 @@ int main(void)
 
         // Update the screen
         update_screen();
-
-        // Check for messages/events
-        quit_program();
     }
+
+    // Free resources
+    Swarm_destroy(swarm);
+    close_program();
+
+    return 0;
 }

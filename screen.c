@@ -10,13 +10,12 @@
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 
-SDL_Window *window = NULL;  
+SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 SDL_Texture *texture = NULL;
 Uint32 *main_buffer = NULL;
 Uint32 *blur_buffer = NULL;
 SDL_Event event;
-
 
 // Initialize the SDL_Screen
 void init_SDL_Screen()
@@ -82,8 +81,10 @@ void init_Texture()
 void init_buffers()
 {
   // Create the main buffer and the blur buffer
-  main_buffer = (Uint32 *)malloc(SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
-  blur_buffer = (Uint32 *)malloc(SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+
+
+  main_buffer = (uint32_t*) calloc(SCREEN_WIDTH * SCREEN_HEIGHT, sizeof(uint32_t));
+  blur_buffer = (uint32_t*) calloc(SCREEN_WIDTH * SCREEN_HEIGHT, sizeof(uint32_t));
 
   if (main_buffer == NULL || blur_buffer == NULL)
   {
@@ -91,11 +92,16 @@ void init_buffers()
     SDL_DestroyTexture(texture);   // Destroy the texture
     SDL_DestroyRenderer(renderer); // Destroy the renderer
     SDL_DestroyWindow(window);     // Destroy the window
-    exit(EXIT_FAILURE);                 // Close the program with an error
+    exit(EXIT_FAILURE);            // Close the program with an error
   }
 
-  free(main_buffer);
-  free(blur_buffer);
+  // Initialize the buffers with black color
+  for (int i = 0; i < SCREEN_WIDTH * SCREEN_HEIGHT; ++i)
+  {
+    main_buffer[i] = 0x00000000; // black
+    blur_buffer[i] = 0x00000000; // black
+  }
+
 }
 
 // Update the screen using the main buffer
@@ -112,6 +118,26 @@ void update_screen()
                  NULL,
                  NULL);
   SDL_RenderPresent(renderer);
+}
+
+void set_pixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
+{
+  if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+  {
+    return;
+  }
+
+  Uint32 color = 0;
+
+  color += red;
+  color <<= 8;
+  color += green;
+  color <<= 8;
+  color += blue;
+  color <<= 8;
+  color += 0xFF;
+
+  main_buffer[(y * SCREEN_WIDTH) + x] = color;
 }
 
 void Load_Swarm(Swarm *swarm)
@@ -191,26 +217,6 @@ void get_avg_color(int x, int y, Uint8 *red, Uint8 *green, Uint8 *blue)
   *red = total_red / 9;
   *green = total_green / 9;
   *blue = total_blue / 9;
-}
-
-void set_pixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue)
-{
-  if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
-  {
-    return;
-  }
-
-  Uint32 color = 0;
-
-  color += red;
-  color <<= 8;
-  color += green;
-  color <<= 8;
-  color += blue;
-  color <<= 8;
-  color += 0xFF;
-
-  main_buffer[(y * SCREEN_WIDTH) + x] = color;
 }
 
 // A function that check for SDL events.
